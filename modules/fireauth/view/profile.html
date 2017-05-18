@@ -1,0 +1,27 @@
+<!-- 
+Simple profile, just to show some data ...
+-->
+<div class="wrapper748 center padding-40">
+
+  <div class="row heading">
+      <h5 class="pull-left text-capitalize">Hi, {{userData.username}}</h5>
+      <span class="btn blue pull-right" ng-click="Auth.logout()">Logout</span>
+  </div>
+
+  <ul class="padding-20 -padding-left">
+    <li ng-repeat="(k, v) in userData" class="margin-bottom">
+      <strong class="text-capitalize">{{k}}: </strong>
+      <span class="margin-left" ng-if="v === 30">EMPLOYEE</span>
+        <span class="margin-left" ng-if="v!== 30">{{v}}</span>
+    </li>
+  </ul>
+
+
+     <!--<h4 class="pull-left text-capitalize">General Data of  {{$root.generalData.displayName}}</h4>-->
+
+   <!--<p class="pull-left text-capitalize">{{$root.generalData}}</p>-->
+
+    <!--<h4 class="pull-left text-capitalize">BusinessHours of  {{$root.generalData.displayName}}</h4>-->
+
+    <!--<p class="pull-left text-capitalize">{{$root.businessHours}}</p>-->
+</div>
