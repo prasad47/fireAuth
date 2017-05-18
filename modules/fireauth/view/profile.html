@@ -11,17 +11,20 @@ Simple profile, just to show some data ...
   <ul class="padding-20 -padding-left">
     <li ng-repeat="(k, v) in userData" class="margin-bottom">
       <strong class="text-capitalize">{{k}}: </strong>
-      <span class="margin-left" ng-if="v === 30">EMPLOYEE</span>
-        <span class="margin-left" ng-if="v!== 30">{{v}}</span>
+         <span class="margin-left">{{v}}</span>
     </li>
   </ul>
 
 
-     <!--<h4 class="pull-left text-capitalize">General Data of  {{$root.generalData.displayName}}</h4>-->
+     <h4 class="pull-left text-capitalize">General Data</h4>
 
-   <!--<p class="pull-left text-capitalize">{{$root.generalData}}</p>-->
+   <p class="pull-left text-capitalize">{{$root.generalData}}</p>
 
-    <!--<h4 class="pull-left text-capitalize">BusinessHours of  {{$root.generalData.displayName}}</h4>-->
+    <h4 class="pull-left text-capitalize">BusinessHours </h4>
 
-    <!--<p class="pull-left text-capitalize">{{$root.businessHours}}</p>-->
+    <p class="pull-left text-capitalize">{{$root.businessHours}}</p>
+
+    <h4 class="pull-left text-capitalize">Orders</h4>
+
+    <p class="pull-left text-capitalize">{{$root.orders}}</p>
 </div>

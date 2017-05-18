@@ -67,14 +67,15 @@
   fireAuth.$inject = [
     'DB',
     'firePath',
-    '$rootScope', 
-    '$firebaseAuth', 
+    '$rootScope',
+     '$firebaseAuth',
     '$firebaseObject',
     '$location',
-    'Flash'
+    'Flash',
+      '$firebaseArray'
   ];
   
-  function fireAuth(DB, firePath, $rootScope, $firebaseAuth, $firebaseObject, $location, Flash){
+  function fireAuth(DB, firePath, $rootScope, $firebaseAuth, $firebaseObject, $location, Flash,$firebaseArray){
     
     var vm        = this;
     vm.ref        = Reference;
@@ -88,6 +89,7 @@
     vm.resolve    = Resolve;
     vm.restricted = Restricted;
     vm.allowed    = Allowed;
+
 
     
     // Allowed Paths
@@ -107,7 +109,7 @@
     }
     
     // Get FireBase Object
-    function Get(path){
+    function  Get(path){
       return $firebaseObject(vm.ref(path));
     }
     
@@ -129,17 +131,32 @@
     function loginUser(data){
       
       vm.auth.$authWithPassword(data)
-      
         .then(function(loggedinUser){
 
-           // console.log('loggedinUser'+JSON.stringify(loggedinUser));
+          Flash.success("You've successfully logged in.");
+            $rootScope.userData = vm.get('users/' + loggedinUser.uid );
 
-            //$rootScope.userData = loggedinUser;
-            //$rootScope.generalData = vm.get('Restaurants/553ca2fa839cb00e005c9011/General');
-            //$rootScope.businessHours = vm.get('Restaurants/553ca2fa839cb00e005c9011/businessHours');
+              $rootScope.userData.$loaded().then(function(dataarray) {
+                  console.log('Initial items received from Firebase', dataarray.realtedRestaurants);
+                 $rootScope.generalData =[];
+                 $rootScope.businessHours = [];
+                $rootScope.orders = [];
 
-             Flash.success("You've successfully logged in.");
-            $rootScope.userData = vm.get('users/' + loggedinUser.uid);
+                  for(var i=0;i<dataarray.realtedRestaurants.length;i++){
+                     $rootScope.generalData.push(vm.get('Restaurants/'+dataarray.realtedRestaurants[i]+'/General'));
+                     $rootScope.businessHours.push(vm.get('Restaurants/'+dataarray.realtedRestaurants[i]+'/businessHours'));
+                    if(dataarray.role !== "EMPLOYEE"){
+                      console.log('----------------------'+dataarray.role);
+                      $rootScope.orders.push(vm.get('Restaurants/'+dataarray.realtedRestaurants[i]+'/orders'));
+                    }else{
+                      $rootScope.orders = ['retricted Data'];
+                    }
+
+                   }
+
+               });
+
+
 
            $location.path(firePath.afterLogin);
 
@@ -153,11 +170,15 @@
         });
     }
 
+
     // 0 - SUPPORT
     //  10 - OWNER
     // 20 - MANAGER
     // 30 - EMPLOYEE
     // 99 - ADMINISTRATOR
+
+
+
 
     // FireBase $createUser
     function createUser(data){
