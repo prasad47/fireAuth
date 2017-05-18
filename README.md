@@ -30,4 +30,4 @@ If you have any questions, feel free to drop me a line at: wpnemesis@gmail.com
 "# fireAuth" 
 
 Note :- 
-This is Purely a copy of https://github.com/uloga/fireauth/  I just cloned and updated to my repository for some experimentation purpose ... Thanks to you uloga 
+This is Purely a copy of https://github.com/uloga/fireauth/  I just cloned and updated to my repository for some experimentation purposes ... Thanks to you uloga 
