@@ -154,6 +154,7 @@
 
                    }
 
+
                });
 
 
@@ -184,7 +185,6 @@
     function createUser(data){
       
       vm.auth.$createUser(data)
-        
           .then(function(user){
             
             var obj =  {
@@ -194,7 +194,7 @@
               email: data.email,
               "role-value":"EMPLOYEE"
             };
-            
+            console.log(obj);
             vm.ref('users')
               .child(user.uid)
               .set(obj);
